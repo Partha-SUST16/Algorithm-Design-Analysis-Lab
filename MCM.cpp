@@ -1,30 +1,29 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int tab[10][10];
+int table[10][10];
 vector<int>v;
 
-int MCM(int i,int j)
+int MCM(int i, int j)
 {
-    if(i==j)
-        return 0;
+    if(i==j) return 0;
 
     else
     {
-        int mi = INT_MAX;
+        int min = INT_MAX;
 
-        for(int k=i; k<j; k++)
+        for(int k=i;k<j;k++)
         {
-            if(tab[i][k]==0)
-                tab[i][k] = MCM(i,k);
-            if(tab[k+1][j]==0)
-                tab[k+1][j] = MCM(k+1,j);
-            int sum = tab[i][k] + tab[k+1][j] + v[i]*v[j]*v[k];
-            if(sum<mi)
-                mi = sum;
+            if(table[i][k]==0)
+                table[i][k] = MCM(i,k);
+            if(table[k+1][j]==0)
+                table[k+1][j] = MCM(k+1,j);
+            int sum = table[i][k] + table[k+1][j] + v[i-1]*v[j]*v[k];
+            if(sum<min)
+                min = sum;
         }
-        tab[i][j] = mi;
-        return mi;
+        table[i][j]=min;
+        return min;
     }
 }
 int main()
@@ -34,5 +33,5 @@ int main()
     v.resize(n);
     for(int i=0; i<n; i++)
         cin>>v[i];
-    cout<<MCM(0,n-1);
+    cout<<MCM(1,n-1);
 }
